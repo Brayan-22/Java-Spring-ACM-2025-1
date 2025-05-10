@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link th:href="#{bootstrap.cdn.url}" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>Iniciar sesion</h1>
+    <form th:action="@{/login}" method="post" th:object="${usuario}">
+        <div>
+            <label for="username" class="form-label">Username: </label>
+            <input type="text" id="username" th:field="*{username}">
+            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+        </div>
+        <div>
+            <label for="password" class="form-label">Password: </label>
+            <input type="password" id="password" th:field="*{password}">
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+        </div>
+        <input type="submit" value="Iniciar sesion">
+    </form>
+    <div th:if="${error}" th:text="${error}"></div>
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
