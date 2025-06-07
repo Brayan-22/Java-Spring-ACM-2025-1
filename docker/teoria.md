@@ -1,4 +1,4 @@
-# 🐳 Guía Teórica Completa de Docker
+#  Guía Teórica de Docker
 
 Este documento sirve como un recurso teórico fundamental, parte del curso ACM Java Spring para comprender Docker en profundidad, desde sus conceptos básicos hasta la orquestación con Swarm.
 
@@ -112,7 +112,56 @@ Un `Dockerfile` contiene instrucciones para construir imágenes.
 - `ENV`: Define variables de entorno que se utilizarán para personalizar en el arranque las imagenes creadas.
 **Combinación común:**  
 ```Dockerfile
-ENTRYPOINT ["/usr/bin/mi-app"]
-CMD ["--modo", "produccion"]
-
+  ENTRYPOINT ["/usr/bin/mi-app"]
+  CMD ["--modo", "produccion"]
+```
 Una vez se tiene la imagen, hay dos formas de utilizarlas, una es ejecutandolas directamente y la otra es usando docker compose o docker stack
+
+# ️Iniciar Contenedores con `docker run` y Uso de Variables de Entorno
+
+## 1. Iniciar Contenedores con `docker run`
+
+El comando `docker run` permite iniciar un contenedor desde una imagen.
+
+### 📌 Sintaxis Básica
+
+```bash
+  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+```
+Ejemplo simple:
+```bash
+  docker run -d --name mi-nginx -p 8080:80 nginx:alpine
+```
+
+Y pasando variables de entorno al contenedor:
+```bash
+  docker run -d --name mi-nginx -p 8080:80 -e "ENV_VAR=valor" nginx:alpine
+```
+
+### Docker avanzado
+#### Docker compose
+Docker Compose es una herramienta para definir y administrar entornos multi-contenedor mediante un archivo YAML
+### 📌 Sintaxis Básica de `docker-compose.yml`
+
+```yaml
+version: '3.8'
+services:
+  nombre_servicio:
+    image: nombre_imagen
+    ports:
+      - "8080:80"
+    environment:
+      - ENV_VAR=valor
+    volumes:
+      - ./ruta/local:/ruta/contenedor
+```
+### Comandos de uso comun 
+```bash
+  docker-compose up            # Levanta todos los servicios
+  docker-compose down          # Detiene y elimina contenedores, redes, etc.
+  docker-compose build         # Construye las imágenes definidas
+  docker-compose ps            # Lista los contenedores en ejecución
+  docker-compose logs -f       # Muestra logs de todos los servicios
+```
+
+
