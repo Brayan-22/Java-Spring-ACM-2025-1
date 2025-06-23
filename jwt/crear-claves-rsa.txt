@@ -1,0 +1,11 @@
+Con los siguientes comandos crean las claves RSA:
+---- clave privada ----
+openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+
+
+---- clave pública ----
+openssl pkey -in private_key.pem -pubout -out public_key.pem
+
+
+Recuerden que la clave privada debe ser protegida y no debe ser compartida. La clave pública puede ser distribuida libremente.
+Idealmente guardarla en un lugar seguro y no exponerla públicamente.
